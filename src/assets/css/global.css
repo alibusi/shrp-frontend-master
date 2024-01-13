@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Dengl";
+    src: url("../../fonts/Dengl.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "YaHeiMonacoHybrid";
+    src: url("../../fonts/YaHeiMonacoHybrid.ttf") format("truetype");
+}

@@ -1,30 +1,25 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div id="app">
+    <a-config-provider :locale="enUS">
+      <BasicLayout />
+    </a-config-provider>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style></style>
+<script setup lang="ts">
+import BasicLayout from "@/layouts/BasicLayout.vue";
+import { SessionIdControllerService } from "../generated/services/SessionIdControllerService";
+import { onMounted, ref } from "vue";
+import enUS from "@arco-design/web-vue/es/locale/lang/en-us";
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+const sessionId = ref("");
+onMounted(async () => {
+  const res = await SessionIdControllerService.generateSessionIdUsingGet();
+  if (res.code === 0) {
+    sessionId.value = res.data;
+    console.log("sessionId" + sessionId.value);
+    localStorage.setItem("sessionId", sessionId.value); // 将session id 存储在localStorage中
+  }
+});
+</script>
